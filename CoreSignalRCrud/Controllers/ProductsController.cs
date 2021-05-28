@@ -1,5 +1,6 @@
 ﻿using CoreSignalRCrud.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -11,11 +12,13 @@ namespace CoreSignalRCrud.Controllers
     public class ProductsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IHubContext<SignalRServer> _signalR;
         
 
-        public ProductsController(ApplicationDbContext context)
+        public ProductsController(ApplicationDbContext context, IHubContext<SignalRServer> signalR)
         {
             this._context = context;
+            this._signalR = signalR;
         }
 
         public async Task<IActionResult> Index()
