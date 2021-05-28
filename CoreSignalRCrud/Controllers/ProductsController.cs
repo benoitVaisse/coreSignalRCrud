@@ -26,6 +26,7 @@ namespace CoreSignalRCrud.Controllers
             return View(await _context.Products.ToListAsync());
         }
 
+        [HttpGet]
         public async Task<IActionResult> GetProducts()
         {
             return Ok(await _context.Products.ToListAsync());
@@ -59,6 +60,7 @@ namespace CoreSignalRCrud.Controllers
             {
                 _context.Products.Add(products);
                 await _context.SaveChangesAsync();
+                await this._signalR.Clients.All.SendAsync("LoadProducts");
                 RedirectToAction(nameof(Index));
             }
             return View(products);
@@ -90,6 +92,7 @@ namespace CoreSignalRCrud.Controllers
             {
                 this._context.Products.Update(products);
                 await this._context.SaveChangesAsync();
+                await this._signalR.Clients.All.SendAsync("LoadProducts");
                 RedirectToAction(nameof(Index));
             }
             return View(products);

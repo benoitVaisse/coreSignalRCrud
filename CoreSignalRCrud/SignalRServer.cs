@@ -8,6 +8,9 @@ namespace CoreSignalRCrud
 {
     public class SignalRServer : Hub
     {
-
+        public async Task LoadProduct()
+        {
+            await Clients.All.SendAsync("LoadProducts");
+        }
     }
 }
