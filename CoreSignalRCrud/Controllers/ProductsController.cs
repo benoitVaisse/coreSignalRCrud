@@ -23,6 +23,10 @@ namespace CoreSignalRCrud.Controllers
             return View(await _context.Products.ToListAsync());
         }
 
+        public async Task<IActionResult> GetProducts()
+        {
+            return Ok(await _context.Products.ToListAsync());
+        }
         [HttpGet]
         public async Task<IActionResult> Details(int? Id)
         {
