@@ -2,7 +2,13 @@
 
 $(document).ready(() => {
 
-    
+    var connection = new signalR.HubConnectionBuilder().withUrl("/signalRServer").build();
+    connection.start();
+    connection.on("LoadProducts", () => {
+        loadProdData();
+    })
+
+
     loadProdData();
     function loadProdData() {
         let tr = "";
